@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>متجر FIRO Style | معرض المنتجات</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body class="shop-page">
+    <header>
+        <div class="logo">FIRO Style</div>
+        <nav>
+            <a href="/">الرئيسية</a>
+            <a href="/shop" class="active">المتجر</a>
+        </nav>
+    </header>
+
+    <section class="shop-hero">
+        <h1>متجرنا الخاص</h1>
+        <p>اكتشف تشكيلة المكرمية المصنوعة بكل حب</p>
+    </section>
+
+    <main class="products-grid">
+        <div class="container">
+            <div class="grid-layout">
+                {% for product in products %}
+                <div class="product-card">
+                    <div class="product-img">
+                        <img src="{{ url_for('static', filename='images/' + product['img']) }}" alt="{{ product['name'] }}">
+                    </div>
+                    <div class="product-info">
+                        <h3>{{ product['name'] }}</h3>
+                        <p class="price">{{ product['price'] }} جنيه</p>
+                        <a href="https://wa.me/201557671143?text=أريد طلب: {{ product['name'] }}" class="shop-btn">
+                            طلب عبر واتساب <i class="fab fa-whatsapp"></i>
+                        </a>
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+    </main>
+</body>
+</html>

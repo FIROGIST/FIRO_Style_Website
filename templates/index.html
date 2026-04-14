@@ -3,52 +3,56 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>FIRO Style | {{ product.name }}</title>
+    <title>FIRO Style | الرئيسية</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
-    <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;700;800&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
 </head>
 <body>
-    <button id="dark-mode-toggle" class="theme-btn"><i class="fas fa-moon"></i></button>
 
-    <header class="hero-header" style="background-image: url('{{ url_for('static', filename='cover.png') }}');">
-        <nav class="nav-bar">
-            <img src="{{ url_for('static', filename='logo.png') }}" class="logo-img">
-            <div class="nav-links">
-                <a href="/admin"><i class="fas fa-user-cog"></i> الإدارة</a>
-                <a href="#"><i class="fas fa-store"></i> المتجر</a>
-            </div>
+    <header>
+        <div class="logo">FIRO Style</div>
+        <nav>
+            <a href="/" class="active">الرئيسية</a>
+            <a href="/shop">المتجر</a>
         </nav>
-        <div class="hero-title">
-            <h1>FIRO Style</h1>
-            <p>فن العقد والجمال اليدوي</p>
-        </div>
     </header>
 
-    <main class="main-content">
-        <div class="product-gallery">
-            <div class="slides">
-                {% for img in product.images %}
-                    {% if img %}
-                    <img src="{{ url_for('static', filename=img) }}" class="slide">
-                    {% endif %}
-                {% endfor %}
+    <section class="hero">
+        <div class="hero-content">
+            <h1>أهلاً بك في عالم المكرمية</h1>
+            <p>قطع يدوية صنعت بكل حب لتضيف لمسة جمالية لمنزلك</p>
+            <div class="hero-buttons">
+                <a href="/shop" class="btn-primary">تصفح المتجر</a>
+                <a href="https://wa.me/201557671143" class="btn-secondary">تواصل معنا</a>
             </div>
-            <button class="prev" onclick="moveSlide(-1)">&#10094;</button>
-            <button class="next" onclick="moveSlide(1)">&#10095;</button>
         </div>
+    </section>
 
-        <div class="product-info">
-            <span class="badge"><i class="fas fa-star"></i> الأكثر مبيعاً</span>
-            <h2 class="product-title">{{ product.name }}</h2>
-            <div class="price-tag"><i class="fas fa-tags"></i> {{ product.price }} جنيه</div>
-            <div class="description" style="white-space: pre-line;">{{ product.desc }}</div>
-            <a href="https://wa.me/{{ product.whatsapp }}" class="whatsapp-main-btn">
-                <i class="fab fa-whatsapp"></i> اطلب الآن عبر واتساب
-            </a>
-        </div>
+    <main class="container">
+        <section class="featured-product">
+            <div class="product-container">
+                <div class="product-images">
+                    <img src="{{ url_for('static', filename='images/' + product.images[0]) }}" id="mainImg" alt="منتج مميز">
+                </div>
+                
+                <div class="product-details">
+                    <span class="badge">الأكثر مبيعاً</span>
+                    <h1>{{ product.name }}</h1>
+                    <p class="price">{{ product.price }} جنيه</p>
+                    <div class="description">
+                        <p>{{ product.desc }}</p>
+                    </div>
+                    <a href="https://wa.me/{{ product.whatsapp }}?text=أريد استفسار عن: {{ product.name }}" class="whatsapp-btn">
+                        <i class="fab fa-whatsapp"></i> اطلب الآن عبر واتساب
+                    </a>
+                </div>
+            </div>
+        </section>
     </main>
 
-    <script src="{{ url_for('static', filename='script.js') }}"></script>
+    <footer>
+        <p>جميع الحقوق محفوظة © 2026 | FIRO Style</p>
+    </footer>
+
 </body>
 </html>
