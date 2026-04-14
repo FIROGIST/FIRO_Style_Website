@@ -23,7 +23,6 @@
             <p>قطع يدوية صنعت بكل حب لتضيف لمسة جمالية لمنزلك</p>
             <div class="hero-buttons">
                 <a href="/shop" class="btn-primary">تصفح المتجر</a>
-                <a href="https://wa.me/201557671143" class="btn-secondary">تواصل معنا</a>
             </div>
         </div>
     </section>
@@ -32,7 +31,7 @@
         <section class="featured-product">
             <div class="product-container">
                 <div class="product-images">
-                    <img src="{{ url_for('static', filename='images/' + product.images[0]) }}" id="mainImg" alt="منتج مميز">
+                    <img src="{{ url_for('static', filename='images/' + product.images[0]) }}" alt="منتج مميز">
                 </div>
                 
                 <div class="product-details">
@@ -42,7 +41,7 @@
                     <div class="description">
                         <p>{{ product.desc }}</p>
                     </div>
-                    <a href="https://wa.me/{{ product.whatsapp }}?text=أريد استفسار عن: {{ product.name }}" class="whatsapp-btn">
+                    <a href="https://wa.me/{{ product.whatsapp }}?text=أريد طلب: {{ product.name }}" class="whatsapp-btn">
                         <i class="fab fa-whatsapp"></i> اطلب الآن عبر واتساب
                     </a>
                 </div>
