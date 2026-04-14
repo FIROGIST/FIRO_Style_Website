@@ -1,10 +1,17 @@
 from flask import Flask, render_template, request, redirect, url_for
 import sqlite3
+import os
 
-app = Flask(__name__)
+# السطرين بتوع البرمجة هما دول: 
+# ضفنا (template_folder و static_folder) عشان السيرفر يعرف يوصل للفولدرات وهي بره مجلد api
+app = Flask(__name__, 
+            template_folder='../templates', 
+            static_folder='../static')
 
 def init_db():
-    conn = sqlite3.connect('firo_style.db')
+    # تعديل مسار قاعدة البيانات لتكون في الفولدر الرئيسي
+    db_path = os.path.join(os.path.dirname(__file__), '../firo_style.db')
+    conn = sqlite3.connect(db_path)
     c = conn.cursor()
     c.execute('''CREATE TABLE IF NOT EXISTS products 
                  (id INTEGER PRIMARY KEY, name TEXT, price INTEGER, desc TEXT, img TEXT, img2 TEXT, img3 TEXT)''')
@@ -22,7 +29,8 @@ def init_db():
 
 @app.route('/')
 def index():
-    conn = sqlite3.connect('firo_style.db')
+    db_path = os.path.join(os.path.dirname(__file__), '../firo_style.db')
+    conn = sqlite3.connect(db_path)
     c = conn.cursor()
     c.execute('SELECT * FROM products WHERE id=1')
     product = c.fetchone()
@@ -40,7 +48,8 @@ def index():
 
 @app.route('/admin', methods=['GET', 'POST'])
 def admin():
-    conn = sqlite3.connect('firo_style.db')
+    db_path = os.path.join(os.path.dirname(__file__), '../firo_style.db')
+    conn = sqlite3.connect(db_path)
     c = conn.cursor()
     if request.method == 'POST':
         c.execute("UPDATE products SET name=?, price=?, desc=? WHERE id=1", 
@@ -53,6 +62,8 @@ def admin():
     conn.close()
     return render_template('admin.html', product=product)
 
+# هذا السطر مهم لـ Vercel
+init_db()
+
 if __name__ == '__main__':
-    init_db()
     app.run(debug=True)
